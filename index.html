@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="ori">
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+</head>
+<body>
+
+<div ng-controller="mainCtrl">
+  Absolute: {{orientation.absolute}}
+  Alpha: {{orientation.alpha}}
+  Beta: {{orientation.beta}}
+  Gamma: {{orientation.gamma}}
+</div>
+
+<script type="application/javascript">
+
+  angular.module('ori', []);
+
+  angular.module('ori')
+      .controller('mainCtrl', function($scope) {
+
+        $scope.orientation = {
+          absolute: 0,
+          alpha: 0,
+          beta: 0,
+          gamma: 0
+        };
+
+        window.addEventListener("deviceorientation", handleOrientation, true);
+
+        function handleOrientation(event) {
+          var absolute = event.absolute;
+          var alpha    = event.alpha;
+          var beta     = event.beta;
+          var gamma    = event.gamma;
+
+          $scope.orientation.absolute = absolute;
+          $scope.orientation.alpha = alpha;
+          $scope.orientation.beta = beta;
+          $scope.orientation.gamma = gamma;
+          $scope.$digest();
+        }
+      });
+</script>
+</body>
+</html>
